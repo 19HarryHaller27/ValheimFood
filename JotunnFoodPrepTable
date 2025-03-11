@@ -1,0 +1,241 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using BepInEx.Configuration;
+
+namespace Jotunn.Configs
+{
+	/// <summary>
+	///     Helper to get existing crafting station names
+	/// </summary>
+	// Token: 0x0200007D RID: 125
+	public static class CraftingStations
+	{
+		/// <summary>
+		///     No crafting station
+		/// </summary>
+		// Token: 0x170000DF RID: 223
+		// (get) Token: 0x060005D0 RID: 1488 RVA: 0x0001F964 File Offset: 0x0001DB64
+		public static string None
+		{
+			get
+			{
+				return string.Empty;
+			}
+		}
+
+		/// <summary>
+		///    Workbench crafting station
+		/// </summary>
+		// Token: 0x170000E0 RID: 224
+		// (get) Token: 0x060005D1 RID: 1489 RVA: 0x0001F96B File Offset: 0x0001DB6B
+		public static string Workbench
+		{
+			get
+			{
+				return "piece_workbench";
+			}
+		}
+
+		/// <summary>
+		///    Forge crafting station
+		/// </summary>
+		// Token: 0x170000E1 RID: 225
+		// (get) Token: 0x060005D2 RID: 1490 RVA: 0x0001F972 File Offset: 0x0001DB72
+		public static string Forge
+		{
+			get
+			{
+				return "forge";
+			}
+		}
+
+		/// <summary>
+		///     Stonecutter crafting station
+		/// </summary>
+		// Token: 0x170000E2 RID: 226
+		// (get) Token: 0x060005D3 RID: 1491 RVA: 0x0001F979 File Offset: 0x0001DB79
+		public static string Stonecutter
+		{
+			get
+			{
+				return "piece_stonecutter";
+			}
+		}
+
+		/// <summary>
+		///     Cauldron crafting station
+		/// </summary>
+		// Token: 0x170000E3 RID: 227
+		// (get) Token: 0x060005D4 RID: 1492 RVA: 0x0001F980 File Offset: 0x0001DB80
+		public static string Cauldron
+		{
+			get
+			{
+				return "piece_cauldron";
+			}
+		}
+
+		/// <summary>
+		///     Artisan table crafting station
+		/// </summary>
+		// Token: 0x170000E4 RID: 228
+		// (get) Token: 0x060005D5 RID: 1493 RVA: 0x0001F987 File Offset: 0x0001DB87
+		public static string ArtisanTable
+		{
+			get
+			{
+				return "piece_artisanstation";
+			}
+		}
+
+		/// <summary>
+		///     Black forge crafting station
+		/// </summary>
+		// Token: 0x170000E5 RID: 229
+		// (get) Token: 0x060005D6 RID: 1494 RVA: 0x0001F98E File Offset: 0x0001DB8E
+		public static string BlackForge
+		{
+			get
+			{
+				return "blackforge";
+			}
+		}
+
+		/// <summary>
+		///     Galdr table crafting station
+		/// </summary>
+		// Token: 0x170000E6 RID: 230
+		// (get) Token: 0x060005D7 RID: 1495 RVA: 0x0001F995 File Offset: 0x0001DB95
+		public static string GaldrTable
+		{
+			get
+			{
+				return "piece_magetable";
+			}
+		}
+
+		/// <summary>
+		///     Mead Ketill crafting station
+		/// </summary>
+		// Token: 0x170000E7 RID: 231
+		// (get) Token: 0x060005D8 RID: 1496 RVA: 0x0001F99C File Offset: 0x0001DB9C
+		public static string MeadKetill
+		{
+			get
+			{
+				return "piece_MeadCauldron";
+			}
+		}
+
+		/// <summary>
+		///     Food Preparation Table crafting station
+		/// </summary>
+		// Token: 0x170000E8 RID: 232
+		// (get) Token: 0x060005D9 RID: 1497 RVA: 0x0001F9A3 File Offset: 0x0001DBA3
+		public static string FoodPreparationTable
+		{
+			get
+			{
+				return "piece_preptable";
+			}
+		}
+
+		/// <summary>
+		///     Gets the human readable name to internal names map
+		/// </summary>
+		/// <returns></returns>
+		// Token: 0x060005DA RID: 1498 RVA: 0x0001F9AA File Offset: 0x0001DBAA
+		public static Dictionary<string, string> GetNames()
+		{
+			return CraftingStations.NamesMap;
+		}
+
+		/// <summary>
+		///     Get a <see cref="T:BepInEx.Configuration.AcceptableValueList`1" /> of all crafting station names.
+		///     This can be used to create a <see cref="T:BepInEx.Configuration.ConfigEntry`1" /> where only valid crafting stations can be selected.<br /><br />
+		///     Example:
+		///     <code>
+		///         var stationConfig = Config.Bind("Section", "Key", nameof(CraftingStations.Workbench), new ConfigDescription("Description", CraftingStations.GetAcceptableValueList()));
+		///     </code>
+		/// </summary>
+		/// <returns></returns>
+		// Token: 0x060005DB RID: 1499 RVA: 0x0001F9B1 File Offset: 0x0001DBB1
+		public static AcceptableValueList<string> GetAcceptableValueList()
+		{
+			return CraftingStations.AcceptableValues;
+		}
+
+		/// <summary>
+		///     Get the internal name for a crafting station from its human readable name.
+		/// </summary>
+		/// <param name="craftingStation"></param>
+		/// <returns>
+		///     The matched internal name.
+		///     If the craftingStation parameter is null or empty, <see cref="P:Jotunn.Configs.CraftingStations.None" /> is returned.
+		///     Otherwise the unchanged craftingStation parameter is returned.
+		/// </returns>
+		// Token: 0x060005DC RID: 1500 RVA: 0x0001F9B8 File Offset: 0x0001DBB8
+		public static string GetInternalName(string craftingStation)
+		{
+			if (string.IsNullOrEmpty(craftingStation))
+			{
+				return CraftingStations.None;
+			}
+			string internalName;
+			if (CraftingStations.NamesMap.TryGetValue(craftingStation, out internalName))
+			{
+				return internalName;
+			}
+			return craftingStation;
+		}
+
+		// Token: 0x040001FD RID: 509
+		private static readonly Dictionary<string, string> NamesMap = new Dictionary<string, string>
+		{
+			{
+				"None",
+				CraftingStations.None
+			},
+			{
+				"Workbench",
+				CraftingStations.Workbench
+			},
+			{
+				"Forge",
+				CraftingStations.Forge
+			},
+			{
+				"Stonecutter",
+				CraftingStations.Stonecutter
+			},
+			{
+				"Cauldron",
+				CraftingStations.Cauldron
+			},
+			{
+				"ArtisanTable",
+				CraftingStations.ArtisanTable
+			},
+			{
+				"BlackForge",
+				CraftingStations.BlackForge
+			},
+			{
+				"GaldrTable",
+				CraftingStations.GaldrTable
+			},
+			{
+				"MeadKetill",
+				CraftingStations.MeadKetill
+			},
+			{
+				"FoodPreparationTable",
+				CraftingStations.FoodPreparationTable
+			}
+		};
+
+		// Token: 0x040001FE RID: 510
+		private static readonly AcceptableValueList<string> AcceptableValues = new AcceptableValueList<string>(CraftingStations.NamesMap.Keys.ToArray<string>());
+	}
+}
